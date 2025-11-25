@@ -11,19 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class CadastroProduto extends JFrame {
 
-    private JPanel panel;
+    private final JPanel panel;
     private JTextField textFieldId;
     private JTextField textFieldDescricao;
     private JTextField textFieldQuantidade;
-    private DefaultListModel<Produto> listaProdutosModel;
-
     private ProdutoController ProdutoController;
 
     public CadastroProduto() {
@@ -113,10 +108,7 @@ public class CadastroProduto extends JFrame {
         try {
             Produto produto = new Produto(id, descricao, quantidade);
             return produto;
-        } catch (NomeProdutoVazio e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);
-            return null;
-        } catch (QuantidadeNegativaException e) {
+        } catch (NomeProdutoVazio | QuantidadeNegativaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);
             return null;
         }
@@ -184,23 +176,11 @@ public class CadastroProduto extends JFrame {
 
     public void criarArquivo() {
         try {
-            File file = new File("ListagemDeProdutos");
-            FileWriter fileWriter = new FileWriter(file, false);
-            List<Produto> ProdutosCarregados = ProdutoController.listarTodos();
-            fileWriter.write("Cód.- Descricao - Qtde");
-            fileWriter.write("\n");
-            fileWriter.write("-----------------------");
-            fileWriter.write("\n");
-            for (Produto produto : ProdutosCarregados) {
-                fileWriter.write(produto.toString());
-                fileWriter.write("\n");
-            }
-
-            fileWriter.close();
+            ProdutoController.gerarArquivoListagem();
+            JOptionPane.showMessageDialog(null, "Arquivo 'ListagemDeProdutos.txt' gerado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException exception) {
-            JOptionPane.showMessageDialog(null, "Erro ao escrever no arquivo");
+            JOptionPane.showMessageDialog(null, "Erro ao escrever no arquivo: " + exception.getMessage(), "Erro de IO", JOptionPane.ERROR_MESSAGE);
         }
-        JOptionPane.showMessageDialog(null, "Arquivo 'ListagemDeProdutos.txt' gerado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 
 

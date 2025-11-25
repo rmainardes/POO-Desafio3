@@ -5,7 +5,9 @@ import Model.entidade.Produto;
 import Model.exception.ProdutoInexistenteException;
 import Model.service.api.ProdutoService;
 import Model.service.impl.ProdutoServiceImpl;
+import Model.IO.ProdutoExportador;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ProdutoControllerImpl implements ProdutoController {
@@ -13,6 +15,12 @@ public class ProdutoControllerImpl implements ProdutoController {
 
     public ProdutoControllerImpl() {
         this.ProdutoService = new ProdutoServiceImpl();
+    }
+
+    public void gerarArquivoListagem() throws IOException {
+        List<Produto> produtosParaExportar = this.ProdutoService.listarTodos();
+        ProdutoExportador exportador = new ProdutoExportador();
+        exportador.exportarLista(produtosParaExportar);
     }
 
     @Override
