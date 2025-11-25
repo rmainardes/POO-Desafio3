@@ -1,0 +1,7 @@
+Cód. - Descricao - Qtde
+--------------------------
+1 - Fone de ouvido JBL - 6
+2 - Teclado Logitech - 40
+3 - Mouse Microsoft - 8
+4 - Monitor concordia - 18
+5 - Mouse Microsoft - 15
