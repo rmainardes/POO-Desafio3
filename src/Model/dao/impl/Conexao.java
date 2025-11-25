@@ -11,7 +11,7 @@ public class Conexao {
     private Conexao() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/desafiotres", "root", "BpMnBpMn05052929--");
+            this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/desafiotres", "root", "root");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.");
         }
